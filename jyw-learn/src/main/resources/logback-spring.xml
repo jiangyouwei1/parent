@@ -1,0 +1,38 @@
+<configuration>
+    <springProperty scop="context" name="appname" source="spring.application.name" defaultValue="spring.application.name"/>
+    <springProperty scop="context" name="appip" source="spring.cloud.client.ip-address" defaultValue="spring.cloud.client.ip-address"/>
+    <springProperty scop="context" name="appport" source="server.port" defaultValue="server.port"/>
+    <property name="logback_pattern"
+              value='{"time\":"%d{yyyy-MM-dd HH:mm:ss.SSS}","thread":"%thread","level":"%-5level",
+	"instance":"${appip}:${appport}","app":"${appname}","class":"%logger","line":%L,"msg":"%msg"}%n'/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %level %logger:%line - %msg%n</pattern>
+            <!-- <pattern>${logback_pattern}</pattern> -->
+        </encoder>
+    </appender>
+    <!--    -->
+    <appender name="SAIC_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/logs/saic.checkup.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/logs/saic.checkup.%d{yyyy-MM-dd}.log.bak</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${logback_pattern}</pattern>
+        </encoder>
+    </appender>
+
+
+
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+    <!--  -->
+    <root level="INFO">
+        <appender-ref ref="SAIC_FILE"/>
+    </root>
+    <logger name="com.jyw.learn.mapper" level="debug" />
+</configuration>

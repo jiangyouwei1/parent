@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: eureka
+  profiles:
+    active: local
+eureka: 
+  instance:
+    #hostname: localhost
+     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+     prefer-ip-address: true
+  client:
+#    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl: 
+      defaultZone: http://${spring.cloud.client.ip-address}:${server.port}/eureka/
+  server:
+    enable-self-preservation: false           # 关闭自我保护模式（缺省为打开）
+    eviction-interval-timer-in-ms: 5000    # 续期时间，即扫描失效服务的间隔时间（缺省为60*1000ms）
+info: 
+  desp: 微服务注册中心系统
+management:
+    endpoint:
+        health:
+            show-details: ALWAYS
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+
+---
+server:
+  port: 8081
+spring:
+  profiles: local
+
+---
+server:
+  port: 8082
+spring:
+  profiles: server

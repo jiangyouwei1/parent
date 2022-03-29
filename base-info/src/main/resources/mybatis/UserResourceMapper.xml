@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jyw.learn.base.mapper.UserResourceMapper">
+    <select id="findAll" resultType="com.jyw.learn.base.vo.UserResourceVo" >
+       SELECT
+            t.username as user_name,t2.`name` as role_name,t4.`name` as resource_name
+        FROM
+            sys_user t,
+            sys_user_role t1,
+            sys_role t2,
+            sys_role_resource t3,
+        sys_resource t4
+        where t.id = t1.user_id
+        and t1.role_id = t2.id
+        and t2.id = t3.role_id
+        and t3.resource_id = t4.id
+    </select>
+    <select id="findAllPage" resultType="com.jyw.learn.base.vo.UserResourceVo" >
+         SELECT
+            t.username as user_name,t2.`name` as role_name,t4.`name` as resource_name
+        FROM
+            sys_user t,
+            sys_user_role t1,
+            sys_role t2,
+            sys_role_resource t3,
+        sys_resource t4
+        where t.id = t1.user_id
+        and t1.role_id = t2.id
+        and t2.id = t3.role_id
+        and t3.resource_id = t4.id
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../parent/eureka/eureka.iml" filepath="$PROJECT_DIR$/../parent/eureka/eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../parent/jyw-learn/jyw-learn.iml" filepath="$PROJECT_DIR$/../parent/jyw-learn/jyw-learn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../parent/parent.iml" filepath="$PROJECT_DIR$/../parent/parent.iml" />
+    </modules>
+  </component>
+</project>

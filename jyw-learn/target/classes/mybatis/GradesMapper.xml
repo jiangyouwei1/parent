@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jyw.learn.mapper.GradesMapper">
+
+    <update id="updateStudentNum" parameterType="com.jyw.learn.model.GradesInfo">
+          update tm_grade_info set student_num = #{studentNum} where id=#{id}
+    </update>
+
+</mapper>

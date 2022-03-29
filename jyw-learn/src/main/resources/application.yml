@@ -1,0 +1,66 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: jyw-learn
+  datasource:
+    url: jdbc:mysql://192.168.1.107:3306/jyw_learn?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000 #设置熔断超时
+ribbon:
+  ReadTimeout: 15000 #处理请求的超时时间，默认为10秒
+  ConnectTimeout: 15000 #连接建立的超时时长，默认5秒
+  MaxAutoRetries: 0               #同一台实例的最大重试次数，但是不包括首次调用，默认为1次
+  MaxAutoRetriesNextServer: 0     #重试负载均衡其他实例的最大重试次数，不包括首次调用，默认为0次
+  OkToRetryOnAllOperations: false #/是否对所有操作都重试，默认false
+  eager-load:
+    clients: base-info,jyw-learn #饥饿加载
+    enabled: true
+#  kafka:
+#    bootstrap-servers: 192.168.1.101:9092,192.168.1.103:9092,192.168.1.105:9092
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    consumer:
+#      group-id: test
+#      enable-auto-commit: true
+#      auto-commit-interval: 1000
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+threadpoolNum: 10
+queueNum: 100
+Jedis:
+  masterhost: 192.168.1.101,192.168.1.103,192.168.1.105
+  masterport: 7001,7003,7005
+
+logging:
+  level:
+    com:
+      jyw:
+        learn:
+          mapper: debug
+          feign: debug
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8081/eureka/
+    fetch-registry: true #拉取eureka注册信息
+    register-with-eureka: true #

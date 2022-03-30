@@ -3,6 +3,8 @@ package com.jyw.learn.common.conf;
 import com.jyw.learn.common.util.RedisUUId;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
@@ -13,10 +15,13 @@ import javax.annotation.Resource;
  */
 @Configuration
 public class FeignConfig implements RequestInterceptor {
+    Logger logger = LoggerFactory.getLogger(this.getClass());
     @Resource
     private RedisUUId redisUUId;
     @Override
     public void apply(RequestTemplate requestTemplate) {
         requestTemplate.header("secretKey", redisUUId.create("secretKey"));
+        logger.info("========createdKey:{}",redisUUId.get("secretKey"));
+
     }
 }

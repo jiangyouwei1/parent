@@ -5,6 +5,12 @@ server:
 spring:
   application:
     name: oauth
+  redis:
+    host: 192.168.1.110
+    port: 6379
+    database: 0
+    timeout: 30000
+
 feign:
   hystrix:
     enabled: true

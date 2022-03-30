@@ -51,6 +51,13 @@ public class OauthController {
         obj.put("expiredIn", keepTime);
         return AjaxResult.successWithData(obj);
     }
+    @RequestMapping(value = "/redistest",method = RequestMethod.POST)
+    @ResponseBody
+    public String test(){
+        redisUtil.set("test","11111");
+        logger.info("value==={}",redisUtil.get("test"));
+        return "success";
+    }
     @RequestMapping(value = "/checkToken",method = RequestMethod.POST)
     @ResponseBody
     public AjaxResult checkToken(@RequestParam @NotBlank String accessToken){

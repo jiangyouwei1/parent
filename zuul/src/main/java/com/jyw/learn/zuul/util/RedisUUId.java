@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class RedisUUId {
     @Autowired
-    RedisTemplate redisTemplate;
+    RedisTemplate<String,Object> redisTemplate;
     // 过期时间
     private final static long expiration = 1000 * 60 * 5;
 

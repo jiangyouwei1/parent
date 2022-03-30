@@ -17,7 +17,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 8000 #设置熔断超时
+            timeoutInMilliseconds: 20000 #设置熔断超时
 ribbon:
   ReadTimeout: 15000 #处理请求的超时时间，默认为10秒
   ConnectTimeout: 15000 #连接建立的超时时长，默认5秒

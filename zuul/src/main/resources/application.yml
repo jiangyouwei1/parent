@@ -1,6 +1,11 @@
 spring:
   application:
     name: zuul
+  redis:
+    host: 192.168.1.110
+    port: 6379
+    database: 0
+    timeout: 30000
 server:
   port: 8084
 management:

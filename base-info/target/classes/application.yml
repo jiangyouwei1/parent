@@ -6,6 +6,11 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    host: 192.168.1.110
+    port: 6379
+    database: 0
+    timeout: 30000
 server:
   port: 8090
 feign:

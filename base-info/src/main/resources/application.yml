@@ -1,11 +1,8 @@
 spring:
   application:
     name: base-info
-  datasource:
-    url: jdbc:mysql://localhost:3306/new_jiakao?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: root
-    driver-class-name: com.mysql.jdbc.Driver
+  profiles:
+    active: local
   redis:
     host: 192.168.1.110
     port: 6379
@@ -16,15 +13,6 @@ server:
 feign:
   hystrix:
     enabled: true
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://127.0.0.1:8081/eureka/
-    fetch-registry: true #拉取eureka注册信息
-    register-with-eureka: true #
 #打印mybatis查询日志
 logging:
   level:
@@ -49,3 +37,38 @@ ribbon:
   eager-load:
     clients: base-info,jyw-learn #饥饿加载
     enabled: true
+---
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/new_jiakao?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8081/eureka/
+    fetch-registry: true #拉取eureka注册信息
+    register-with-eureka: true #
+---
+spring:
+  profiles: uat
+  datasource:
+    url: jdbc:mysql://192.168.1.107:3306/jyw_learn?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    service-url:
+      #defaultZone: http://127.0.0.1:8081/eureka/,http://127.0.0.1:8082/eureka/
+      defaultZone: http://192.168.1.112:8082//eureka/,http://192.168.1.111:8082/eureka,http://192.168.1.110:8082/eureka
+    fetch-registry: true #拉取eureka注册信息
+    register-with-eureka: true #

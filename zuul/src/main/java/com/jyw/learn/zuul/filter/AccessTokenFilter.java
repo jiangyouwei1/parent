@@ -9,6 +9,7 @@ import com.netflix.zuul.exception.ZuulException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -39,9 +40,9 @@ public class AccessTokenFilter extends ZuulFilter {
     private RedisUUId redisUUId;
     @Autowired
     OauthFeign oauthFeign;
+
     @Override
     public Object run() throws ZuulException {
-
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         log.info("请求url==={}",request.getRequestURI());

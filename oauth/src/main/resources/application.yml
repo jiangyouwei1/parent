@@ -1,7 +1,5 @@
 info:
   desp: 授权服务
-server:
-  port: 8082
 spring:
   application:
     name: oauth
@@ -10,7 +8,10 @@ spring:
     port: 6379
     database: 0
     timeout: 30000
-
+  profiles:
+    active: uat
+server:
+  port: 8092
 feign:
   hystrix:
     enabled: true
@@ -27,6 +28,10 @@ ribbon:
   MaxAutoRetries: 0               #同一台实例的最大重试次数，但是不包括首次调用，默认为1次
   MaxAutoRetriesNextServer: 0     #重试负载均衡其他实例的最大重试次数，不包括首次调用，默认为0次
   OkToRetryOnAllOperations: false #/是否对所有操作都重试，默认false
+
+---
+spring:
+  profiles: local
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
@@ -36,3 +41,16 @@ eureka:
       defaultZone: http://127.0.0.1:8081/eureka/
     fetch-registry: true #拉取eureka注册信息
     register-with-eureka: true #
+---
+spring:
+  profiles: uat
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://192.168.1.112:8082/eureka/,http://192.168.1.111:8082/eureka,http://192.168.1.110:8082/eureka
+    fetch-registry: true #拉取eureka注册信息
+    register-with-eureka: true #
+

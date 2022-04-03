@@ -1,9 +1,10 @@
-package com.jyw.learn.common.util;
+package com.jyw.learn.oauth.util;
 import cn.hutool.crypto.SecureUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.UUID;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class RedisUUId {
+    Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     RedisTemplate<String,Object> redisTemplate;
     // 过期时间
@@ -37,6 +39,7 @@ public class RedisUUId {
     }
 
     public Object get(String key){
+        logger.info("=====key有效时间{}",redisTemplate.boundHashOps(key).getExpire());
         return redisTemplate.opsForValue().get(key);
     }
 }

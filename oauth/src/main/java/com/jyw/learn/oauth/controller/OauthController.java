@@ -26,6 +26,9 @@ public class OauthController {
     @Autowired
     RedisUtil redisUtil;
 
+    @Value("${spring.cloud.client.ip-address}")
+    private String port;
+
     private final static long lastTime = 1000 * 60;//过期前一分钟
 
     @Value("${oauth.token.keepTime:1800}")
@@ -51,12 +54,11 @@ public class OauthController {
         obj.put("expiredIn", keepTime);
         return AjaxResult.successWithData(obj);
     }
-    @RequestMapping(value = "/redistest",method = RequestMethod.POST)
+    @RequestMapping(value = "/porttest",method = RequestMethod.POST)
     @ResponseBody
     public String test(){
-        redisUtil.set("test","11111");
-        logger.info("value==={}",redisUtil.get("test"));
-        return "success";
+        logger.info("当前ip==={}",port);
+        return port;
     }
     @RequestMapping(value = "/checkToken",method = RequestMethod.POST)
     @ResponseBody

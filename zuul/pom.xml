@@ -7,11 +7,11 @@
         <groupId>com.jyw.learn</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.jyw.learn</groupId>
     <artifactId>zuul</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modelVersion>4.0.0</modelVersion>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -28,5 +28,37 @@
             <version>4.5.16</version>
         </dependency>
     </dependencies>
+    <properties>
+        <docker.registry.url>org.demo.com</docker.registry.url>
+        <docker.registry.host>http://${docker.registry.url}:2375</docker.registry.host>
+        <image.version>latest</image.version>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <configuration>
+                    <serverId>docker-hub</serverId>
+                    <dockerHost>${docker.registry.host}</dockerHost>
+                    <imageName>${project.artifactId}</imageName>
+                    <dockerDirectory>${project.basedir}/src/docker</dockerDirectory>
+                    <image>${project.artifactId}:${image.version}</image>
+                    <newName>${project.artifactId}:${image.version}</newName>
+                    <imageTags>${image.version}</imageTags>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <registryUrl>${docker.registry.url}</registryUrl>
+                    <!--<pushImage>true</pushImage>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

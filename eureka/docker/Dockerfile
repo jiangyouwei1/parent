@@ -4,7 +4,7 @@ EXPOSE 8081
 
 ENV LOG_NAME  eureka
 
-ENV NAME eureka-1.0.0.jar
+ENV NAME eureka-1.0-SNAPSHOT.jar
 
 ADD $NAME $NAME
 #在此配置了cmd命令 docker run时可以不知道

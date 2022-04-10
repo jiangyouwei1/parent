@@ -2,7 +2,7 @@ spring:
   application:
     name: eureka
   profiles:
-    active: server
+    active: local
 info:
   desp: 微服务注册中心系统
 management:
@@ -44,13 +44,14 @@ eureka:
   instance:
     #hostname: localhost
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
-    prefer-ip-address: true
+    prefer-ip-address: false
   client:
-    #    registerWithEureka: false
+    registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://192.168.1.110:${server.port}/eureka/,http://192.168.1.112:${server.port}/eureka/
+      #defaultZone: http://192.168.1.110:${server.port}/eureka/,http://192.168.1.112:${server.port}/eureka/ #docker容器单独发布
       #defaultZone: http://192.168.1.112:8081/eureka/
+      defaultZone: ${EUREKA_SERVICE_LIST} #通过docker swarm 部署配置
   server:
     enable-self-preservation: false           # 关闭自我保护模式（缺省为打开）
     eviction-interval-timer-in-ms: 5000    # 续期时间，即扫描失效服务的间隔时间（缺省为60*1000ms）

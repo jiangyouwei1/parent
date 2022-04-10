@@ -7,10 +7,41 @@
     <groupId>com.jyw</groupId>
     <artifactId>eureka</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <docker.registry.url>192.168.1.119</docker.registry.url>
+        <docker.registry.host>http://${docker.registry.url}:2375</docker.registry.host>
+        <image.version>latest</image.version>
+    </properties>
     <parent>
         <groupId>com.jyw.learn</groupId>
         <artifactId>parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <configuration>
+                    <serverId>docker-hub</serverId>
+                    <dockerHost>${docker.registry.host}</dockerHost>
+                    <imageName>${project.artifactId}</imageName>
+                    <dockerDirectory>${project.basedir}/docker</dockerDirectory>
+                    <image>${project.artifactId}:${image.version}</image>
+                    <newName>${project.artifactId}:${image.version}</newName>
+                    <imageTags>${image.version}</imageTags>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <registryUrl>${docker.registry.url}</registryUrl>
+                    <!--<pushImage>true</pushImage>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

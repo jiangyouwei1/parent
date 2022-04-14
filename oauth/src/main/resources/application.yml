@@ -50,7 +50,8 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://192.168.1.112:8082/eureka/,http://192.168.1.111:8082/eureka,http://192.168.1.110:8082/eureka
+      #defaultZone: http://192.168.1.112:8082/eureka/,http://192.168.1.111:8082/eureka,http://192.168.1.110:8082/eureka
+      defaultZone: http://${EUREKA_SERVER_ADDR}:8082/eureka/ #docker swarm部署
     fetch-registry: true #拉取eureka注册信息
     register-with-eureka: true #
 

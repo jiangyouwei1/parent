@@ -43,7 +43,8 @@ spring:
 eureka:
   instance:
     #hostname: localhost
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    #instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}
     prefer-ip-address: false
   client:
     registerWithEureka: true

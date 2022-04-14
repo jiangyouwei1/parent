@@ -2,7 +2,7 @@ FROM java:8
 #容器中应用程序的运行端口
 EXPOSE 8084
 
-ENV LOG_NAME  zuul
+ENV LOG_NAME  baseinfo
 
 ENV NAME base-info-1.0-SNAPSHOT.jar
 

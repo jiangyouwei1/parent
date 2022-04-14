@@ -29,7 +29,7 @@
         </dependency>
     </dependencies>
     <properties>
-        <docker.registry.url>org.demo.com</docker.registry.url>
+        <docker.registry.url>192.168.1.119</docker.registry.url>
         <docker.registry.host>http://${docker.registry.url}:2375</docker.registry.host>
         <image.version>latest</image.version>
     </properties>
